@@ -80,7 +80,7 @@ userSchema.methods.toJSON = function () {
 //create JWT token
 userSchema.methods.generateAuthToken = async function () {
     const user = this
-    const token = jwt.sign({ _id: user.id.toString() }, 'thisismyauthtoken', { expiresIn: '24h' })
+    const token = jwt.sign({ _id: user.id.toString() }, process.env.JWT_SECRET, { expiresIn: '24h' })
     user.tokens = user.tokens.concat({ token })
     await user.save()
     return token
